@@ -1,115 +1,109 @@
-# Made in Time — FactoryGuessr
+# Wo & Wann? — Geschichte entdecken, statt Jahreszahlen auswendig zu lernen
 
-## Aktueller Bildstatus (nach E04 Wall Street und E05 Guatemala)
-- **13 visuell akzeptiert**, **4 ausdrücklich neu**, **13 ohne aktuelles Review**. Keine finale Spiel-/360°-Freigabe (0/30).
-- E04 Wall Street 1929 nach Nutzerfeedback visuell akzeptiert; E05 Guatemala 1954 neuer, noch ungeprüfter 3D-first-Fotokandidat. [E05 QA](docs/scene-research/E05_Guatemala_1954_3D_photo_QA.md).
-- **[Verbindliche Bildliste](docs/IMAGE_PRODUCTION_STATUS_30.md)** · [Gemini-Briefing (17 offen)](docs/team/GEMINI_IMAGE_HANDOFF_CURRENT.md) · [Issue #18](https://github.com/Matteo-Winter/FactoryGuessr/issues/18).
-- Die neue Fotofassung ist kein native 4K-Foto und nicht streng 3D-geometriegebunden; die exakten Bilddateien liegen im Chat-ZIP, nicht automatisch im Repository.
+<p align="center">
+  <img src="public/assets/logo-wo-und-wann.png" alt="Wo & Wann? – Logo" width="520">
+</p>
 
+**Wo auf der Welt bist du – und in welchem Jahr?** In *Wo & Wann?* erkundest du historische Schauplätze als drehbare 360°-Szenen. Du suchst Hinweise in Architektur, Maschinen, Kleidung und Umgebung, setzt deinen Tipp auf eine Weltkarte und wählst ein Jahr auf der Zeitleiste. Erst danach erfährst du, was an diesem Ort passiert ist – und warum es für die Geschichte der Weltwirtschaft wichtig war.
 
-**Guess where. Guess when.**
+**[▶ Im Browser spielen](https://wo-wann.vercel.app/)** · [So funktioniert es](#so-funktioniert-das-spiel) · [Lokal starten](#lokal-starten)
 
-Ein historisches GeoGuessr-artiges Lernspiel für die ZuWi-Vertiefung **„Von Handelskompanien zu Multinational Corporations“**: In einer drehbaren historischen Produktions-, Handels- oder Ereignisszene erraten Spielende das Land und die Epoche. Danach folgt eine kurze Einordnung zu Arbeitsbedingungen, Industrie, Kolonialismus, Unternehmensmacht oder globalen Lieferketten.
+> **Projektstatus:** Spielbarer Web-Prototyp mit historisch inspirierten **KI-Rekonstruktionen**. Die Bilder sind keine Originalfotografien; ihre historische und geometrische Endprüfung ist noch nicht abgeschlossen.
 
-## Festgelegter Umfang
+## Ein Blick ins Spiel
 
-- **Aktives Ziel: genau 30 spielbare Szenen**: 16 Produktionsorte, 6 Handels-/Machtzentren und 8 historische Wendepunkte (1670–2023; bestehende Szene P01 beginnt 1660).
-- **[Aktiver Masterplan mit allen 30 Szene-IDs, Ländern, Jahren, Inhalten und ZuWi-Bezügen](docs/SCENE_MASTERPLAN_30.md)**. Der [frühere 60er-Fabrikenplan](docs/SCENE_MASTERPLAN_60.md) ist ausschließlich Archiv; keine neuen Bilder für ausgemusterte Vorschläge erzeugen.
-- V1 verwendet **360°-Panoramen (equirectangular, 2:1)** mit fester Kameraposition, **keine frei begehbaren 3D-Modelle**.
-- Historische Betriebe dürfen **plausible, KI-generierte Kompositszenen** sein. Diese werden als *Rekonstruktion* gekennzeichnet – nicht als echte historische Fotografien.
-- Informationen wie Land, Zeitraum und Lernkontext werden getrennt vom KI-Bild geprüft.
-- Keine automatischen Behauptungen über konkrete Unternehmen, die nicht belegt sind.
+Die folgenden Bilder sind **echte Szenenbilder aus dem Repository**, keine nachträglich angefertigten Werbegrafiken. Im Spiel kannst du dich innerhalb dieser Panoramen umsehen.
 
-**Aktueller Bildstatus (09.11.2026):** **12 Bildfassungen visuell akzeptiert**, **5 Bilder neu zu machen**, **13 ohne aktuelles Urteil**. Kollege mit Gemini bearbeitet **18 offene Arbeiten**. E01 Boston wurde nach dem Remake akzeptiert; E03 Suez ist nach neuem 3D-/Foto-Versuch **wegen der 360°-Naht weiterhin FAIL**. **0/30 formale Spielfreigaben**. [Bildstatus und Namen](docs/IMAGE_PRODUCTION_STATUS_30.md).
+| Früher globaler Handel | Industrielle Massenproduktion | Moderne Lieferketten |
+| :---: | :---: | :---: |
+| <img src="public/assets/orte/amsterdam-voc-werft.jpg" alt="KI-Rekonstruktion der VOC-Werft in Amsterdam" width="310"> | <img src="public/assets/orte/automobilfabrik.jpg" alt="KI-Rekonstruktion einer frühen Automobil-Montagehalle" width="310"> | <img src="public/assets/orte/taiwan-chips.jpg" alt="KI-Rekonstruktion einer modernen Halbleiterfertigung" width="310"> |
+| VOC-Werft in Amsterdam, um 1670 | Ford-Produktion in Highland Park, 1913 | Halbleiterfertigung in Taiwan, 2023 |
 
-## Repository
+*Alle drei Motive sind KI-generierte historische bzw. zeitgenössische Rekonstruktionen. Sie illustrieren die Lerninhalte, sind aber keine fotografischen Belege.*
 
-- `public/data/scenes.json` — Pilot-Szenenkonzepte, Metadaten, Prompts, Bildpfade und Freigabestatus.
-- `docs/PANORAMA_PIPELINE.md` — Generierungs- und Qualitätskontrollprozess.
-- `scripts/generate_skybox.py` — lokaler Prompt-/Job-Exporter für eine spätere manuelle Panorama-Generierung (**ohne API-Aufruf und ohne Kosten**).
-- `public/assets/panoramas/` — Panoramabilder; derzeit drei KI-generierte 2:1-Testbilder (nicht freigegeben).
-- `public/index.html` — erster 360°-Browser-Viewer mit Bild-Upload und Probe-Ratefunktion.
+## Warum wir das gebaut haben
+
+Das Projekt entstand als **Creative Assignment** in der WU-Lehrveranstaltung *ZuWi – Von Handelskompanien zu Multinational Corporations* (Matteo Winter und Niklas Meller; Betreuung: Wolfgang Gruber).
+
+Die Leitfrage dahinter: **Wie lässt sich die Entstehung der globalisierten Wirtschaft unmittelbar erfahrbar machen?** Zwischen einer Werft der Niederländischen Ostindien-Kompanie, einer industriellen Fließbandfertigung und einer heutigen Chipfabrik liegen Jahrhunderte – aber auch Verbindungen über Handel, Rohstoffe, Arbeit, Kapital und Macht.
+
+Anstatt diese Entwicklung ausschließlich über Texte und Jahreszahlen zu vermitteln, macht das Spiel daraus eine Entdeckungsaufgabe. Wer einen Ort und eine Zeit schätzen muss, achtet auf konkrete Spuren. Die Auflösung verknüpft das Gesehene anschließend mit dem historischen Hintergrund. Das Spiel soll **Neugier auslösen**, nicht den Besuch eines Geschichtsarchivs oder sorgfältige Quellenarbeit ersetzen.
+
+## So funktioniert das Spiel
+
+1. **Themen auswählen:** *Produktion*, *Handel & Macht* und/oder *Wendepunkte*. Die Länge einer Runde lässt sich von **1 bis 9 Szenen** einstellen.
+2. **Umsehen:** Ein 360°-Panorama aus einem festen Kamerastandpunkt erkunden. Du kannst die Ansicht drehen; es gibt keine frei begehbare 3D-Welt.
+3. **Wo und wann raten:** Auf der zoombaren Weltkarte einen Ort markieren und auf der Zeitleiste ein Jahr auswählen (**1600–2025**).
+4. **Auflösen:** Bis zu **10.000 Punkte je Szene** sammeln – bis zu 5.000 für die räumliche Einschätzung und 5.000 für die zeitliche. Ein richtiges Land erhält die vollen Ortspunkte; sonst fließt die Entfernung zur tatsächlichen Position ein. Bei der Jahreswertung zählt die Abweichung.
+5. **Etwas lernen:** Die Auflösung zeigt den richtigen Ort und das Jahr, die Abweichung deiner Tipps, historische Erklärungen und visuelle Hinweise. Nach der Runde erscheint eine Gesamtübersicht.
+
+Die Auswahl berücksichtigt bereits gespielte Orte im Browser, damit sich neue Szenen möglichst vor Wiederholungen zeigen. Die letzte Rundenpunktzahl wird lokal gespeichert. **Es gibt aktuell keine öffentliche Online-Bestenliste.**
+
+### Inhaltlicher Schwerpunkt
+
+Die Orte reichen von der frühen Neuzeit bis ins 21. Jahrhundert und verknüpfen drei Perspektiven:
+
+- **Produktion:** Technischer Wandel, Arbeitsbedingungen, Industrialisierung und Ressourcen.
+- **Handel & Macht:** Handelskompanien, Kolonialismus, Transport und internationale wirtschaftliche Verflechtungen.
+- **Wendepunkte:** Ereignisse, an denen sich politische und wirtschaftliche Strukturen sichtbar verändert haben.
+
+## Aktueller Stand und Grenzen
+
+Der Datenbestand unter [`public/data/orte.json`](public/data/orte.json) enthält derzeit **29 konfigurierte Szeneneinträge** mit zugehörigen Bilddateien; daneben existieren [drei frühe technische Testpanoramen](public/data/scenes.json). Einige Pilotmotive überschneiden sich inhaltlich mit dem Hauptkatalog.
+
+Das getrennte [Produktionsziel umfasst 30 kuratierte historische Schauplätze](docs/SCENE_MASTERPLAN_30.md). **Spielbar / eingebunden** bedeutet dabei ausdrücklich **nicht** historisch und geometrisch endgültig freigegeben: Für den verbindlichen 30er-Plan sind noch **0 von 30** Panoramen formal vollständig abgenommen. Details zu Bildauswahl, offenen Remakes und Qualitätskriterien stehen im [Bildproduktionsstatus](docs/IMAGE_PRODUCTION_STATUS_30.md).
+
+Besonders wichtig:
+
+- KI-Rekonstruktionen zeigen plausible zusammengesetzte Szenen, keine authentischen Fotoaufnahmen der Vergangenheit.
+- Bilddetails und historische Aussagen müssen getrennt überprüft werden; ein überzeugend aussehendes Bild ist kein Beleg.
+- Ein 2:1-Bild ist nicht automatisch ein korrektes, nahtloses Kugelpanorama. Die technische Qualität wird eigens geprüft.
+- Die Kartenabfrage nutzt **heutige Ländergrenzen**, auch wenn die Szene aus einer früheren Epoche stammt.
 
 ## Lokal starten
 
+Voraussetzung ist nur **Python 3** oder ein anderer statischer Webserver; es gibt keinen Build-Schritt und keine Datenbank.
+
 ```bash
-git clone https://github.com/Matteo-Winter/FactoryGuessr.git
-cd FactoryGuessr
+git clone https://github.com/Matteo-Winter/Wo-Wann-Spiel.git
+cd Wo-Wann-Spiel
 python3 -m http.server 8000 --directory public
 ```
 
-Dann `http://localhost:8000` öffnen. Für den 360°-Viewer wird die Pannellum-Bibliothek (v2.5.7) über das jsDelivr-CDN geladen. Zusätzlich kann man ein eigenes lokales equirectangulares Testbild hochladen.
+Öffne anschließend **http://localhost:8000**. Der 360°-Viewer lädt [Pannellum](https://pannellum.org/) über ein CDN; dafür wird eine Internetverbindung benötigt.
 
-## Interaktive 360°-Testversion (drei Szenen)
+### Technischer Aufbau
 
-Die drei KI-generierten **2:1-Testbilder** (1774 × 887 px) liegen im Repository unter `public/assets/panoramas/`. Es muss nichts mehr manuell kopiert werden.
+| Bereich | Umsetzung |
+| --- | --- |
+| Weboberfläche und Spiellogik | HTML, CSS und JavaScript in [`public/index.html`](public/index.html) |
+| 360°-Ansichten | Pannellum mit equirectangularen Panoramabildern |
+| Spielinhalte | JSON mit Ort, Land, Jahr, Auflösung, Hinweisen und Bildpfad |
+| Weltkarte | SVG auf Basis von Natural Earth; Zoom, Verschieben und Positions-Pin |
+| Speicherung | Browser-`localStorage` für Einstellungen, Szenenwiederholungen und letzte Runde |
+| Hosting | Statische Website aus `public/` über Vercel |
 
-Zum Testen im geklonten Repository:
-
-1. `python3 -m http.server 8000 --directory public` ausführen.
-2. `http://localhost:8000` öffnen, Szene wählen, per Maus drehen/zoomen, Vollbild testen und **Naht prüfen**.
-
-Historischer Hinweis: Die Bilder wurden ursprünglich als ZIP aus dem ChatGPT-Chat übergeben; dieses ZIP enthielt auch einen alternativen, CDN-unabhängigen WebGL-Viewer. Das ZIP ist nicht mehr der Einstieg – maßgeblich ist dieses Repository.
-
-Schritt-für-Schritt-Anleitung und technische Grenzen: [docs/LOCAL_360_TEST.md](docs/LOCAL_360_TEST.md).
-
-**Ein 360°-Bild ist nicht dasselbe wie ein frei begehbares 3D-Modell.** Die KI-Bilder sind noch nicht auf vollständige 360°-Nahtlosigkeit geprüft und bleiben deshalb Testmaterial (0/30 freigegeben).
-
-## Auf Vercel bereitstellen (noch nicht deployed)
-
-1. Auf [vercel.com/new](https://vercel.com/new) das private GitHub-Repository `Matteo-Winter/FactoryGuessr` importieren und gegebenenfalls den Zugriff für Vercel erlauben.
-2. Einstellungen: **Root Directory:** `./`, **Framework Preset:** `Other`, **Build Command:** leer/kein Build, **Output Directory:** `public`. `vercel.json` definiert Framework und Output Directory bereits.
-3. Auf **Deploy** klicken. Bei späteren Pushes auf `main` kann Vercel automatisch neue Versionen deployen, sobald die Git-Integration eingerichtet ist.
-
-Das Repository wurde lediglich vorbereitet: **Es ist noch kein Deployment ausgeführt worden.** Fehlt für eine Szene die Bilddatei oder kann der Browser sie nicht darstellen, zeigt der Viewer eine Fehlermeldung statt eines Panoramas.
-
-## Bilder einfügen
-
-- Echte geprüfte 360°-Datei (2:1) nach `public/assets/panoramas/<scene-id>.jpg` speichern.
-- Eintrag in `public/data/scenes.json` ergänzen bzw. nach Prüfung `scene_status` auf `ready` setzen.
-- `panorama_path` bleibt relativ zur Website, z.B. `assets/panoramas/gb-1840-textile-mill.jpg`. Nicht `public/` in den Bild-URL schreiben.
-- `public/assets/thumbnails/` ist für spätere Vorschaubilder vorbereitet.
-
-## Bilder generieren
-
-```bash
-python3 scripts/generate_skybox.py gb-1840-textile-mill
-```
-
-Das exportiert den Prompt und die Bildvorgaben (**kein API-Aufruf, keine Kosten**). Zur anschließenden manuellen Generierung und Qualitätsprüfung siehe `docs/PANORAMA_PIPELINE.md`. Niemals Zugangsdaten ins Repo oder ins Frontend schreiben.
-
-## Bildproduktion: 12 akzeptiert, 5 neu, 13 offen
-
-**[Verbindlicher Status aller 30 Szenen](docs/IMAGE_PRODUCTION_STATUS_30.md)** · [JSON/Einzelentscheidungen](docs/team/ACTIVE_SCENES_30.json) · **[Gemini-Auftrag für 18 offene Arbeiten](docs/team/GEMINI_IMAGE_HANDOFF_CURRENT.md)** · [Issue #18](https://github.com/Matteo-Winter/FactoryGuessr/issues/18).
-
-- **12 visuell akzeptiert:** P01/P02/P03/P04/P05/P09/P10/P13, T01/T03/T04, **E01 Boston**.
-- **5 neu:** T05 und E03/E04/E05/E07. **E03 Suez:** neuer Fotokandidat samt echter 3D-Referenz vorhanden, doch die 180°-Naht ist noch nicht sauber; [QA-Bericht](docs/scene-research/E03_Suez_1869_REWORK_QA.md).
-- **13 aktuell nicht beurteilt:** P06/P07/P08/P11/P12/P14/P15/P16, T02/T06, E02/E06/E08.
-
-Die Bilddateien aus dem Chat sind nicht automatisch auf GitHub hochgeladen; das Urteil „Passt“ ist **nur eine visuelle Auswahl**, keine 360°- oder Historienfreigabe. Keine stillschweigende `ready`-Änderung in `public/data/scenes.json`.
-
-## 360°-Qualitätskontrolle und nächste Bildpipeline
-
-- [Recherche: native 360°-Generatoren, Preise und 1-Szenen-Testplan](docs/360_GENERATION_OPTIONS_2026-11-08.md)
-- [Aktuelle Arbeitsaufgabe für Claude Code: Issue #3](https://github.com/Matteo-Winter/FactoryGuessr/issues/3)
-- Die Bilder sind weiterhin **nicht** historisch/optisch freigegeben (0/30), obwohl der Viewer technisch funktioniert.
-
-Optionale lokale Diagnostik (Pillow und NumPy, **keine** API-Aufrufe):
+### Tests und Bildprüfung
 
 ```bash
 python3 -m pip install -r requirements-qa.txt
-python3 scripts/check_panorama.py public/assets/panoramas/*.jpg
-python3 scripts/export_panorama_views.py public/assets/panoramas/*.jpg   # Prüfansichten nach qa-output/
 python3 -m unittest discover -s tests -p 'test_*.py' -v
+python3 scripts/check_panorama.py public/assets/panoramas/*.jpg
 ```
 
-Die Ergebnisse zeigen Bildgröße, Farbbruch an der 360°-Naht und Hinweise auf problematische Pole. `export_panorama_views.py` rechnet echte perspektivische Ansichten (yaw 0/90/180/270, Zenit, Nadir, Naht-Nahaufnahme) plus ein Prüfblatt `contact_sheet.jpg`, geometrisch identisch mit dem Pannellum-Viewer. Prüfablauf für einen neuen 4K-Kandidaten: [docs/PANORAMA_QA_PROBES.md](docs/PANORAMA_QA_PROBES.md). **Kein Messwert ersetzt die Sichtprüfung im Viewer; das Skript kann Bilder ausdrücklich nicht freigeben.**
+Die Bild-QA liefert Diagnosewerte, **keine automatische historische oder visuelle Freigabe**. Zusätzlich gibt es Werkzeuge für perspektivische Prüfseiten und die lokale Einzelbildansicht.
 
-## Arbeitsprinzip
+## Projektdokumentation
 
-**Zuerst den aktiven 30er-Masterplan als gemeinsame Motivliste verwenden, dann jeweils eine historische Faktenkarte (Produkt, Region, Jahr, passende Maschinen, 2 Orts- und 2 Zeitmerkmale, überprüfbare Quellen) erstellen, dann erst das Bild generieren und QA ausführen.** Die bestehende britische Textilmühle ist als visueller Stilversuch vom Nutzer ausreichend bewertet; das allein ersetzt keine historische oder equirectangulare Freigabe. Bilder sollen sich weltweit und über Epochen unterscheiden und vor der Auflösung keine Ortsnamen/Flaggen als Spoiler zeigen.
+- [Szenen-Masterplan: alle 30 geplanten Schauplätze](docs/SCENE_MASTERPLAN_30.md)
+- [Aktueller Bild- und Freigabestatus](docs/IMAGE_PRODUCTION_STATUS_30.md)
+- [Lokale 360°-Tests und Bedienung](docs/LOCAL_360_TEST.md)
+- [Panorama-Pipeline und Qualitätsanforderungen](docs/PANORAMA_PIPELINE.md)
+- [Technische Panorama-QA](docs/PANORAMA_QA_PROBES.md)
+- [Quellen und Lizenzen der historischen Startseitenbilder sowie Kartendaten](docs/START_SCREEN_IMAGES.md)
 
-Quellen zur Technik:
-- [Blockade Labs: Skybox AI](https://www.blockadelabs.com/)
-- [Blockade Labs API-Dokumentation](https://docs-staging.blockadelabs.com/api/skybox.html)
-- [Pannellum (MIT)](https://pannellum.org/)
+## Mitwirkende und Hinweise zur Nutzung
+
+**Konzept und Umsetzung:** Matteo Winter & Niklas Meller im Rahmen des genannten WU-Kurses. Historische Inhalte und Szenen werden weiter recherchiert und geprüft.
+
+Das Repository ist öffentlich einsehbar, enthält derzeit aber **keine explizite Software-Lizenz**. Eine öffentliche Bereitstellung ist nicht gleichbedeutend mit einer Freigabe zur beliebigen Weiterverwendung. Bildmaterial und historische Quellen sind gesondert zu betrachten.
